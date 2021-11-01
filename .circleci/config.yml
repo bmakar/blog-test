@@ -30,6 +30,7 @@ jobs:
     # CircleCI will report the results back to your VCS provider.
     steps:
       - checkout
+      - allure/install
       - python/install-packages:
           pkg-manager: pip
           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
@@ -37,13 +38,9 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command:  behave -f allure_behave.formatter:AllureFormatter -o ./allure_result_folder blog_api_tests
-      - run:
-          name: Allure install
-          command: allure install
-      - run:
-          name: Allure generate report
-          command: allure report allure_result_folder    
+          command:  behave -f allure_behave.formatter:AllureFormatter -o ./allure_result_folder blog_api_tests 
+      - allure/report:
+          results-path: allure_result_folder    
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
