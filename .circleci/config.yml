@@ -39,7 +39,7 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command:  behave -f allure_behave.formatter:AllureFormatter -o ./allure_result_folder blog_api_tests
-      - openjdk-install    
+      - openjdk-install/openjdk    
       - allure/install    
       - allure/report:
           results-path: allure_result_folder    
